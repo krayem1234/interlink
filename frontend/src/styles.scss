@@ -185,3 +185,59 @@ html, body { background: #f5f1e8 !important; color: #1f2933 !important; }
 
 
 
+
+/* Mobile layout: keep every screen usable on narrow phones. */
+@media (max-width: 700px) {
+  .container { width: 100%; padding-inline: 16px; }
+  .topbar .container { align-items: stretch; gap: 10px; }
+  .brand-text small { display: none; }
+  .brand-logo { width: 38px; height: 38px; border-radius: 10px; }
+  .nav-links { width: 100%; overflow-x: auto; padding-bottom: 2px; gap: 2px !important; -webkit-overflow-scrolling: touch; }
+  .nav-link, .user-email, .nav-links .btn { flex: 0 0 auto; font-size: .82rem; padding: 7px 8px; }
+  .user-email { max-width: 145px; }
+  .dashboard, .offer-list-page, .offer-detail-page, .offer-applications-page, .student-profile, .company-profile-page, .company-profile, .admin-dashboard, .offer-create-page, .security-setup-page, .forgot-password-page { padding: 24px 16px 40px !important; }
+  .dash-header, .profile-header, .admin-header { padding: 22px 18px; margin-bottom: 20px; }
+  .dash-intro h1, .page-header h1 { font-size: 1.55rem; }
+  .info-card { padding: 20px 18px; gap: 14px; }
+  .card-icon { font-size: 2rem; min-width: 38px; }
+  .info-card h2 { font-size: 1.12rem; overflow-wrap: anywhere; }
+  .auth-layout { padding: 18px 12px !important; align-items: flex-start; }
+  .auth-card { border-radius: 12px !important; }
+  .auth-brand { padding: 24px 20px; }
+  .auth-brand h1 { font-size: 1.55rem; }
+  .brand-lead { font-size: .92rem; }
+  .brand-features { gap: 8px; }
+  .auth-form-panel { padding: 24px 20px; }
+  .auth-form-panel h2 { font-size: 1.45rem; }
+  .auth-link-row { text-align: left; }
+  .mat-mdc-form-field { max-width: 100%; }
+  table { display: block; max-width: 100%; overflow-x: auto; }
+}
+
+/* Mobile layout: keep every screen usable on narrow phones. */
+@media (max-width: 700px) {
+  .container { width: 100%; padding-inline: 16px; }
+  .topbar .container { align-items: stretch; gap: 10px; }
+  .brand-text small { display: none; }
+  .brand-logo { width: 38px; height: 38px; border-radius: 10px; }
+  .nav-links { width: 100%; overflow-x: auto; padding-bottom: 2px; gap: 2px !important; -webkit-overflow-scrolling: touch; }
+  .nav-link, .user-email, .nav-links .btn { flex: 0 0 auto; font-size: .82rem; padding: 7px 8px; }
+  .user-email { max-width: 145px; }
+  .dashboard, .offer-list-page, .offer-detail-page, .offer-applications-page, .student-profile, .company-profile-page, .company-profile, .admin-dashboard, .offer-create-page, .security-setup-page, .forgot-password-page { padding: 24px 16px 40px !important; }
+  .dash-header, .profile-header, .admin-header { padding: 22px 18px; margin-bottom: 20px; }
+  .dash-intro h1, .page-header h1 { font-size: 1.55rem; }
+  .info-card { padding: 20px 18px; gap: 14px; }
+  .card-icon { font-size: 2rem; min-width: 38px; }
+  .info-card h2 { font-size: 1.12rem; overflow-wrap: anywhere; }
+  .auth-layout { padding: 18px 12px !important; align-items: flex-start; }
+  .auth-card { border-radius: 12px !important; }
+  .auth-brand { padding: 24px 20px; }
+  .auth-brand h1 { font-size: 1.55rem; }
+  .brand-lead { font-size: .92rem; }
+  .brand-features { gap: 8px; }
+  .auth-form-panel { padding: 24px 20px; }
+  .auth-form-panel h2 { font-size: 1.45rem; }
+  .auth-link-row { text-align: left; }
+  .mat-mdc-form-field { max-width: 100%; }
+  table { display: block; max-width: 100%; overflow-x: auto; }
+}
