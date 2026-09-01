@@ -1,0 +1,89 @@
+<main class="dashboard">
+  <div class="container">
+    <header class="dash-header">
+      <div class="dash-intro">
+        <p class="eyebrow">Tableau de bord</p>
+        <h1>Bienvenue, {{ userName() }} !</h1>
+        <p class="subtitle">Connecté en tant que <strong>{{ roleLabel() }}</strong></p>
+      </div>
+    </header>
+
+    <section class="cards-grid">
+      <div class="info-card">
+        <div class="card-icon">👤</div>
+        <div class="card-content">
+          <p class="card-label">Compte</p>
+          <h2>{{ user()?.email }}</h2>
+          <p>{{ roleLabel() }} · Session active</p>
+        </div>
+      </div>
+
+      @if (user()?.role === 'STUDENT') {
+        <a routerLink="/student/profile" class="info-card accent clickable">
+          <div class="card-icon">👨‍🎓</div>
+          <div class="card-content">
+            <p class="card-label">Mon profil</p>
+            <h2>{{ hasProfile() ? 'Modifier mon profil' : 'Compléter mon profil' }}</h2>
+            <p>{{ hasProfile() ? 'Voir et modifier tes informations' : 'Ajoute tes informations et télécharge ton CV' }}</p>
+          </div>
+        </a>
+        <a routerLink="/my-applications" class="info-card clickable application-card-link">
+          <div class="card-icon">📨</div>
+          <div class="card-content">
+            <p class="card-label">Suivi</p>
+            <h2>Mes candidatures</h2>
+            <p>Consulte les réponses des entreprises et tes entretiens.</p>
+          </div>
+        </a>
+      } @else if (user()?.role === 'COMPANY') {
+        <a routerLink="/company/profile" class="info-card accent clickable">
+          <div class="card-icon">🏢</div>
+          <div class="card-content">
+            <p class="card-label">Mon profil</p>
+            <h2>{{ hasProfile() ? 'Modifier mon profil' : 'Compléter mon profil' }}</h2>
+            <p>{{ hasProfile() ? 'Voir et modifier tes informations' : 'Ajoute les informations de ton entreprise' }}</p>
+          </div>
+        </a>
+      } @else if (user()?.role === 'ADMIN') {
+        <a routerLink="/admin/dashboard" class="info-card accent clickable">
+          <div class="card-icon">⚙️</div>
+          <div class="card-content">
+            <p class="card-label">Administration</p>
+            <h2>Tableau de bord admin</h2>
+            <p>Gérer les profils étudiants et entreprises</p>
+          </div>
+        </a>
+      } @else {
+        <div class="info-card accent">
+          <div class="card-icon">🚀</div>
+          <div class="card-content">
+            <p class="card-label">Prochaines étapes</p>
+            <ul>
+              @for (step of nextSteps(); track step) {
+                <li>{{ step }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
+
+      <a routerLink="/offers" class="info-card accent clickable">
+        <div class="card-icon">💼</div>
+        <div class="card-content">
+          <p class="card-label">Offres de stage</p>
+          <h2>Explorer les offres</h2>
+          <p>Découvrir les stages disponibles ou publier une offre</p>
+        </div>
+      </a>
+
+      <div class="info-card">
+        <div class="card-icon">📅</div>
+        <div class="card-content">
+          <p class="card-label">Semaine 5</p>
+          <h2>Gestion des Offres</h2>
+          <p>Fonctionnalités disponibles !</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

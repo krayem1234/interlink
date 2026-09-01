@@ -1,0 +1,91 @@
+<main class="landing">
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <p class="eyebrow">🚀 La plateforme pour vos stages</p>
+        <h1>Connectez étudiants, entreprises et opportunités</h1>
+        <p class="lead">
+          InternLink simplifie la gestion des stages avec un espace dédié pour chaque rôle :
+          étudiants, entreprises et administrateurs.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-large" routerLink="/signup">Commencer gratuitement</a>
+          <a class="btn btn-outline btn-large" routerLink="/signin">Se connecter</a>
+        </div>
+
+        <div class="tech-tags">
+          <span class="tag">Angular 19</span>
+          <span class="tag">NestJS</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Microservices</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="visual-card">
+          <div class="visual-header">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="visual-content">
+            <h3>3 Rôles • 1 Plateforme</h3>
+            <ul>
+              <li><strong>👨‍🎓 Étudiant</strong> – Recherche, CV, candidatures</li>
+              <li><strong>🏢 Entreprise</strong> – Offres, entretiens, décisions</li>
+              <li><strong>👨‍💼 Admin</strong> – Validation, statistiques</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container">
+      <div class="stat-card">
+        <h3>7+</h3>
+        <p>Microservices architecturés</p>
+      </div>
+      <div class="stat-card">
+        <h3>100%</h3>
+        <p>Sécurité renforcée</p>
+      </div>
+      <div class="stat-card">
+        <h3>24/7</h3>
+        <p>Support et disponibilité</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Nos atouts</p>
+        <h2>Pourquoi choisir InternLink ?</h2>
+      </div>
+
+      <div class="features-grid">
+        @for (item of highlights; track item.title) {
+          <div class="feature-card">
+            <div class="feature-icon">✨</div>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Prêt à commencer ?</h2>
+        <p>Créez votre compte en quelques clics et rejoignez la communauté InternLink.</p>
+        <a class="btn btn-primary btn-large" routerLink="/signup">Créer un compte maintenant</a>
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,120 @@
+.dashboard {
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+  gap: 24px;
+  background: white;
+  padding: 32px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+}
+
+.dash-intro .eyebrow {
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.dash-intro h1 {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.dash-intro .subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.application-card-link { border: 1px solid rgba(37, 99, 235, .18); }
+
+.info-card {
+  background: white;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  &.accent {
+    background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(147,51,234,0.1) 100%);
+  }
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      background: linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(147,51,234,0.2) 100%);
+    }
+  }
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  min-width: 50px;
+}
+
+.card-label {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+.info-card h2 {
+  font-size: 1.35rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.info-card p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.info-card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-secondary);
+  display: grid;
+  gap: 6px;
+}
+
+@media (max-width: 960px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,122 @@
+<main class="sandbox">
+  <section class="intro">
+    <p class="eyebrow">Auth Sandbox</p>
+    <h1>Tester la semaine 2 dans le front</h1>
+    <p>
+      Utilise cette page pour appeler directement le gateway sur les routes register, login,
+      refresh et OTP.
+    </p>
+    <p class="status">{{ statusMessage }}</p>
+  </section>
+
+  <section class="forms-grid">
+    <mat-card>
+      <h2>Register</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="STUDENT">STUDENT</mat-option>
+            <mat-option value="COMPANY">COMPANY</mat-option>
+            <mat-option value="ADMIN">ADMIN</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit">Register</button>
+      </form>
+    </mat-card>
+
+    <mat-card>
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit">Login</button>
+      </form>
+    </mat-card>
+
+    <mat-card>
+      <h2>Refresh token</h2>
+      <form [formGroup]="refreshForm" (ngSubmit)="refresh()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Refresh token</mat-label>
+          <textarea matInput rows="4" formControlName="refreshToken"></textarea>
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit">Refresh</button>
+      </form>
+    </mat-card>
+
+    <mat-card>
+      <h2>Request OTP</h2>
+      <form [formGroup]="otpRequestForm" (ngSubmit)="requestOtp()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit">Generate OTP</button>
+      </form>
+    </mat-card>
+
+    <mat-card>
+      <h2>Verify OTP</h2>
+      <form [formGroup]="otpVerifyForm" (ngSubmit)="verifyOtp()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>OTP</mat-label>
+          <input matInput formControlName="otp" />
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit">Verify</button>
+      </form>
+    </mat-card>
+
+    <mat-card>
+      <h2>Reset password</h2>
+      <form [formGroup]="resetForm" (ngSubmit)="resetPassword()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>OTP</mat-label>
+          <input matInput formControlName="otp" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>New password</mat-label>
+          <input matInput type="password" formControlName="newPassword" />
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit">Reset password</button>
+      </form>
+    </mat-card>
+  </section>
+
+  <section class="output">
+    <mat-card>
+      <h2>Derniere reponse</h2>
+      <pre>{{ responseText }}</pre>
+      @if (lastLogin) {
+        <div class="token-box">
+          <p><strong>Access token</strong></p>
+          <pre>{{ lastLogin.accessToken }}</pre>
+          <p><strong>Refresh token</strong></p>
+          <pre>{{ lastLogin.refreshToken }}</pre>
+        </div>
+      }
+    </mat-card>
+  </section>
+</main>

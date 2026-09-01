@@ -1,0 +1,82 @@
+<div class="offer-create-page">
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>Publier une offre de stage</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="errorMessage()" class="error-message">{{ errorMessage() }}</div>
+      <div *ngIf="successMessage()" class="success-message">{{ successMessage() }}</div>
+
+      <form [formGroup]="form" (ngSubmit)="createOffer()">
+        <mat-form-field appearance="fill">
+          <mat-label>Titre de l'offre</mat-label>
+          <input matInput formControlName="title" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="4" required></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Technologies</mat-label>
+          <div class="tech-input-container">
+            <input matInput [value]="technologiesInput()" (keyup.enter)="addTechnology()">
+            <button mat-icon-button (click)="addTechnology()" type="button">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div class="tech-chips">
+            <mat-chip *ngFor="let tech of technologies()" removable="true" (removed)="removeTechnology(tech)">
+              {{ tech }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+          </div>
+        </mat-form-field>
+
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Durée (semaines)</mat-label>
+            <input matInput type="number" formControlName="durationWeeks" min="1" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Type de stage</mat-label>
+            <mat-select formControlName="internshipType" required>
+              <mat-option value="PFE">PFE</mat-option>
+              <mat-option value="SUMMER">Stage d'été</mat-option>
+              <mat-option value="ALTERNANCE">Alternance</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre de places</mat-label>
+            <input matInput type="number" formControlName="seats" min="1" required>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Date limite</mat-label>
+            <input matInput type="date" formControlName="deadline" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Localisation</mat-label>
+            <input matInput formControlName="location">
+          </mat-form-field>
+        </div>
+
+        <div class="actions">
+          <button mat-button type="button" (click)="goBack()">Annuler</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="loading()">
+            <mat-spinner *ngIf="loading()" diameter="20"></mat-spinner>
+            <span *ngIf="!loading()">Publier</span>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

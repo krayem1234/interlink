@@ -1,0 +1,149 @@
+<main class="student-profile">
+  <div class="container">
+    <header class="profile-header">
+      <button mat-button (click)="goBack()" class="back-btn">
+        <mat-icon>arrow_back</mat-icon>
+        Retour au tableau de bord
+      </button>
+      <div class="header-content">
+        <p class="eyebrow">Profil étudiant</p>
+        <h1>{{ studentProfile() ? 'Modifier ton profil' : 'Complète ton profil' }}</h1>
+      </div>
+    </header>
+
+    @if (errorMessage()) {
+      <div class="alert error">
+        <mat-icon>error</mat-icon>
+        {{ errorMessage() }}
+      </div>
+    }
+
+    @if (successMessage()) {
+      <div class="alert success">
+        <mat-icon>check_circle</mat-icon>
+        {{ successMessage() }}
+      </div>
+    }
+
+    <div class="profile-grid">
+      <mat-card class="profile-card">
+        <mat-card-header style="padding: 28px 28px 0 28px;">
+          <mat-card-title style="font-size: 1.35rem; color: var(--text-primary); font-weight: 700;">Informations personnelles</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="padding: 28px;">
+          <form [formGroup]="form" (ngSubmit)="saveProfile()" class="profile-form">
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Prénom</mat-label>
+                <input matInput formControlName="firstName" required>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Nom</mat-label>
+                <input matInput formControlName="lastName" required>
+              </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Téléphone</mat-label>
+              <input matInput formControlName="phone">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>LinkedIn</mat-label>
+              <input matInput formControlName="linkedinUrl" placeholder="https://linkedin.com/in/votreprofil">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>GitHub</mat-label>
+              <input matInput formControlName="githubUrl" placeholder="https://github.com/votreprofil">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Compétences</mat-label>
+              <mat-chip-grid #chipGrid aria-label="Saisir des compétences">
+                @for (skill of skills(); track skill) {
+                  <mat-chip-row (removed)="removeSkill(skill)">
+                    {{ skill }}
+                    <button matChipRemove aria-label="Supprimer la compétence">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                }
+              </mat-chip-grid>
+              <input
+                placeholder="Ajouter une compétence..."
+                [matChipInputFor]="chipGrid"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="addSkill($event)"
+              />
+              <mat-hint>Tape une compétence et appuie sur Entrée pour l'ajouter</mat-hint>
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="form.invalid || loading()"
+            >
+              {{ loading() ? 'Enregistrement...' : 'Enregistrer le profil' }}
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="cv-card">
+        <mat-card-header style="padding: 28px 28px 0 28px;">
+          <mat-card-title style="font-size: 1.35rem; color: var(--text-primary); font-weight: 700;">Mon CV</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="padding: 28px;">
+          <div class="cv-upload-section">
+            <input
+              type="file"
+              #cvInput
+              (change)="uploadCV(cvInput)"
+              accept=".pdf,.doc,.docx"
+              class="file-input"
+              id="cv-file"
+            >
+            <label for="cv-file" class="upload-label">
+              <mat-icon>cloud_upload</mat-icon>
+              <span>Télécharger un nouveau CV</span>
+              <small>PDF, DOC, DOCX - Max 10MB</small>
+            </label>
+          </div>
+
+          <div class="cv-list">
+            @if (cvs().length > 0) {
+              <h3>CVs téléchargés</h3>
+              <div class="cv-items">
+                @for (cv of cvs(); track cv.id) {
+                  <div class="cv-item">
+                    <mat-icon class="cv-icon">description</mat-icon>
+                    <div class="cv-info">
+                      <span class="cv-name">{{ cv.file_name }}</span>
+                      <span class="cv-date">{{ cv.created_at | date:'short' }}</span>
+                    </div>
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      (click)="deleteCV(cv.id)"
+                      [disabled]="loading()"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="empty-state">
+                <mat-icon>folder_open</mat-icon>
+                <p>Aucun CV téléchargé</p>
+              </div>
+            }
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</main>

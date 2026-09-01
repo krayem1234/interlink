@@ -1,0 +1,252 @@
+<main class="admin-dashboard">
+  <div class="container">
+    <header class="admin-header">
+      <a routerLink="/dashboard" class="back-link">
+        <mat-icon>arrow_back</mat-icon>
+        Retour au tableau de bord
+      </a>
+      <div class="admin-intro">
+        <p class="eyebrow">Administration</p>
+        <h1>Tableau de bord admin</h1>
+        <p class="subtitle">Gérer les profils, les utilisateurs et les demandes</p>
+      </div>
+      <button mat-raised-button color="primary" (click)="loadData()" [disabled]="loading()">
+        <mat-icon>refresh</mat-icon>
+        Actualiser
+      </button>
+    </header>
+
+    @if (errorMessage()) {
+      <div class="error-banner">
+        <mat-icon>error</mat-icon>
+        <p>{{ errorMessage() }}</p>
+      </div>
+    }
+    @if (successMessage()) {
+      <div class="success-banner">
+        <mat-icon>check_circle</mat-icon>
+        <p>{{ successMessage() }}</p>
+      </div>
+    }
+
+    @if (loading()) {
+      <div class="loading-state">
+        <mat-spinner diameter="48"></mat-spinner>
+        <p>Chargement des données...</p>
+      </div>
+    } @else {
+      <section class="admin-sections">
+        <!-- Password Change Requests Section -->
+        @if (passwordChangeRequests().length > 0) {
+          <div class="section-card requests">
+            <div class="section-header">
+              <div class="section-title">
+                <mat-icon>lock_reset</mat-icon>
+                <h2>Demandes de changement de mot de passe</h2>
+              </div>
+              <span class="count-badge">{{ passwordChangeRequests().length }}</span>
+            </div>
+            <div class="profiles-list">
+              @for (request of passwordChangeRequests(); track request.id) {
+                <div class="profile-card">
+                  <div class="profile-header">
+                    <div class="profile-name">
+                      <div class="avatar">{{ request.email.charAt(0).toUpperCase() }}</div>
+                      <div>
+                        <h3>{{ request.email }}</h3>
+                        <p>Demande le {{ request.createdAt | date: 'dd/MM/yyyy à HH:mm' }}</p>
+                      </div>
+                    </div>
+                    <div class="action-buttons">
+                      <button
+                        mat-raised-button
+                        color="primary"
+                        (click)="handlePasswordChangeRequest(request.id, true)"
+                      >
+                        <mat-icon>check</mat-icon>
+                        Approuver
+                      </button>
+                      <button
+                        mat-raised-button
+                        color="warn"
+                        (click)="handlePasswordChangeRequest(request.id, false)"
+                      >
+                        <mat-icon>close</mat-icon>
+                        Refuser
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Users Section -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <mat-icon>people</mat-icon>
+              <h2>Utilisateurs</h2>
+            </div>
+            <span class="count-badge">{{ users().length }}</span>
+          </div>
+          <div class="profiles-list">
+            @for (user of users(); track user.id) {
+              <div class="profile-card">
+                <div class="profile-header">
+                  <div class="profile-name">
+                    <div class="avatar">{{ user.email.charAt(0).toUpperCase() }}</div>
+                    <div>
+                      <h3>{{ user.email }}</h3>
+                      <p>Rôle: {{ user.role }}</p>
+                    </div>
+                  </div>
+                  <div class="user-status">
+                    <span class="badge" [class.blocked]="user.isBlocked">
+                      {{ user.isBlocked ? 'Bloqué' : 'Actif' }}
+                    </span>
+                    <button
+                      mat-icon-button
+                      (click)="toggleUserBlock(user.id, !user.isBlocked)"
+                    >
+                      <mat-icon>{{ user.isBlocked ? 'lock_open' : 'lock' }}</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            } @empty {
+              <div class="empty-state">
+                <mat-icon>person_outline</mat-icon>
+                <p>Aucun utilisateur pour le moment</p>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Students Section -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <mat-icon>school</mat-icon>
+              <h2>Étudiants</h2>
+            </div>
+            <span class="count-badge">{{ students().length }}</span>
+          </div>
+          <div class="profiles-list">
+            @for (student of students(); track student.user_id || student.id) {
+              <div class="profile-card">
+                <div class="profile-header">
+                  <div class="profile-name">
+                    @if (student.first_name && student.last_name) {
+                      <div class="avatar">{{ (student.first_name || '').charAt(0) }}{{ (student.last_name || '').charAt(0) }}</div>
+                      <div>
+                        <h3>{{ student.first_name }} {{ student.last_name }}</h3>
+                        <p>{{ student.phone || 'Téléphone non renseigné' }}</p>
+                      </div>
+                    } @else {
+                      <div class="avatar">{{ student.email.charAt(0).toUpperCase() }}</div>
+                      <div>
+                        <h3>{{ student.email }}</h3>
+                        <p>Profil non complété</p>
+                      </div>
+                    }
+                  </div>
+                  <span class="date-badge">
+                    {{ student.created_at | date: 'dd/MM/yyyy' }}
+                  </span>
+                </div>
+                @if (student.first_name && student.last_name) {
+                  <div class="profile-details">
+                    @if (student.linkedin_url) {
+                      <a href="{{ student.linkedin_url }}" target="_blank" class="detail-link">
+                        <mat-icon>link</mat-icon>
+                        LinkedIn
+                      </a>
+                    }
+                    @if (student.github_url) {
+                      <a href="{{ student.github_url }}" target="_blank" class="detail-link">
+                        <mat-icon>link</mat-icon>
+                        GitHub
+                      </a>
+                    }
+                  </div>
+                  @if (student.skills && student.skills.length > 0) {
+                    <div class="skills-chips">
+                      <mat-chip-listbox>
+                        @for (skill of student.skills; track skill) {
+                          <mat-chip>{{ skill }}</mat-chip>
+                        }
+                      </mat-chip-listbox>
+                    </div>
+                  }
+                }
+              </div>
+            } @empty {
+              <div class="empty-state">
+                <mat-icon>person_outline</mat-icon>
+                <p>Aucun étudiant pour le moment</p>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Companies Section -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <mat-icon>business</mat-icon>
+              <h2>Entreprises</h2>
+            </div>
+            <span class="count-badge">{{ companies().length }}</span>
+          </div>
+          <div class="profiles-list">
+            @for (company of companies(); track company.id) {
+              <div class="profile-card">
+                <div class="profile-header">
+                  <div class="profile-name">
+                    <div class="avatar company">{{ (company.name || '').charAt(0) }}</div>
+                    <div>
+                      <h3>{{ company.name }}</h3>
+                      <p>{{ company.sector || 'Secteur non renseigné' }}</p>
+                    </div>
+                  </div>
+                  <div class="company-status">
+                    <span class="badge" [class.validated]="company.validated">
+                      {{ company.validated ? 'Validé' : 'Non validé' }}
+                    </span>
+                    <button
+                      mat-icon-button
+                      (click)="validateCompany(company.id, !company.validated)"
+                    >
+                      <mat-icon>{{ company.validated ? 'check_circle' : 'pending' }}</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <div class="profile-details">
+                  @if (company.address) {
+                    <span class="detail-item">
+                      <mat-icon>location_on</mat-icon>
+                      {{ company.address }}
+                    </span>
+                  }
+                  @if (company.website) {
+                    <a href="{{ company.website }}" target="_blank" class="detail-link">
+                      <mat-icon>public</mat-icon>
+                      Site web
+                    </a>
+                  }
+                </div>
+              </div>
+            } @empty {
+              <div class="empty-state">
+                <mat-icon>business_outline</mat-icon>
+                <p>Aucune entreprise pour le moment</p>
+              </div>
+            }
+          </div>
+        </div>
+      </section>
+    }
+  </div>
+</main>

@@ -1,0 +1,101 @@
+<div class="offer-detail-page">
+  <button mat-button class="back-button" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    Retour aux offres
+  </button>
+
+  <div *ngIf="loading()" class="loading-container">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+
+  <div *ngIf="errorMessage()" class="error-message">
+    {{ errorMessage() }}
+  </div>
+
+  <mat-card *ngIf="!loading() && offer()" class="offer-detail-card">
+    <mat-card-header>
+      <mat-card-title>{{ offer()?.title }}</mat-card-title>
+      <mat-card-subtitle>{{ offer()?.location || 'Localisation non précisée' }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <mat-icon>schedule</mat-icon>
+          <span>Durée: {{ offer()?.duration_weeks }} semaines</span>
+        </div>
+        <div class="meta-item">
+          <mat-icon>work</mat-icon>
+          <span>Type: {{ offer()?.internship_type }}</span>
+        </div>
+        <div class="meta-item">
+          <mat-icon>people</mat-icon>
+          <span>Places: {{ offer()?.seats }}</span>
+        </div>
+        <div class="meta-item">
+          <mat-icon>event</mat-icon>
+          <span>Date limite: {{ offer()?.deadline | date: 'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+
+      <h3>Description</h3>
+      <p class="description">{{ offer()?.description }}</p>
+
+      <h3 *ngIf="offer()?.technologies?.length">Technologies</h3>
+      <div class="chips-container">
+        <mat-chip *ngFor="let tech of offer()?.technologies" color="primary">{{ tech }}</mat-chip>
+      </div>
+
+      <!-- Application Form for Students -->
+      <div *ngIf="user()?.role === 'STUDENT'" class="application-section">
+        <hr>
+        <h3 style="margin-top: 24px;">Postuler à cette offre</h3>
+        
+        <div *ngIf="!studentProfile() || !studentProfile()?.id" class="info-message">
+          <mat-icon>info</mat-icon>
+          Complétez votre profil étudiant d'abord !
+          <button mat-button color="primary" routerLink="/student/profile">
+            Accéder au profil
+          </button>
+        </div>
+        
+        <div *ngIf="studentProfile()?.id && cvs().length === 0" class="info-message">
+          <mat-icon>info</mat-icon>
+          Téléchargez au moins un CV avant de postuler !
+          <button mat-button color="primary" routerLink="/student/profile">
+            Télécharger un CV
+          </button>
+        </div>
+
+        <form *ngIf="studentProfile()?.id && cvs().length > 0" [formGroup]="applicationForm" class="application-form">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Lettre de motivation</mat-label>
+            <textarea matInput formControlName="motivation" rows="4" placeholder="Expliquez pourquoi vous êtes intéressé par ce stage"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Sélectionnez un CV</mat-label>
+            <mat-select formControlName="cvDocumentId">
+              <mat-option *ngFor="let cv of cvs()" [value]="cv.id">
+                {{ cv.file_name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button *ngIf="user()?.role === 'STUDENT' && studentProfile()?.id && cvs().length > 0" mat-raised-button color="primary" (click)="apply()" [disabled]="applicationForm.invalid || applying()">
+        <mat-spinner *ngIf="applying()" diameter="20" style="margin-right: 8px;"></mat-spinner>
+        <span *ngIf="!applying()">
+          <mat-icon>send</mat-icon>
+          Postuler
+        </span>
+        <span *ngIf="applying()">Envoi en cours...</span>
+      </button>
+      <button *ngIf="user()?.role === 'COMPANY'" mat-raised-button color="accent" (click)="goToApplications()">
+        <mat-icon>people</mat-icon>
+        Voir candidatures ({{ offer()?.application_count || 0 }})
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,187 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  --bg-gradient-1: #0f766e;
+  --bg-gradient-2: #2563eb;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #bfdbfe;
+  --accent: #0f766e;
+  --stroke: #e2e8f0;
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-primary);
+  background: #f1f5f9;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fond et surfaces partagés : toutes les pages utilisent la même identité visuelle. */
+.landing .hero { background: linear-gradient(120deg, #0f766e 0%, #2563eb 100%); }
+.dashboard,
+.offer-list-page,
+.offer-detail-page,
+.offer-applications-page,
+.student-profile,
+.company-profile-page,
+.company-profile,
+.admin-dashboard,
+.auth-layout,
+.security-setup-page,
+.forgot-password-page,
+.offer-create-page {
+  background: transparent !important;
+}
+
+.offer-list-page,
+.offer-detail-page,
+.offer-applications-page,
+.student-profile,
+.company-profile-page,
+.company-profile,
+.admin-dashboard,
+.auth-layout,
+.security-setup-page,
+.forgot-password-page,
+.offer-create-page {
+  max-width: 1240px !important;
+  margin-inline: auto !important;
+  padding: 40px 24px 64px !important;
+}
+
+.offer-list-page .page-header h1,
+.offer-applications-page .page-header h1 { color: var(--text-primary) !important; }
+.offer-detail-page .back-button { color: var(--primary) !important; }
+.offer-list-page .mat-mdc-card,
+.offer-detail-page .mat-mdc-card,
+.offer-applications-page .mat-mdc-card,
+.student-profile .mat-mdc-card,
+.company-profile-page .mat-mdc-card,
+.company-profile .mat-mdc-card,
+.admin-dashboard .mat-mdc-card {
+  border: 1px solid var(--stroke);
+  border-radius: 18px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .06) !important;
+}
+
+.offer-list-page .error-message,
+.offer-detail-page .error-message,
+.offer-applications-page .error-message { background: #fef2f2 !important; color: #b91c1c !important; border: 1px solid #fecaca; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Poppins', 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-focus-outline-color: var(--primary);
+  --mdc-outlined-text-field-focus-label-text-color: var(--primary);
+}
+
+.mat-mdc-unelevated-button.mat-primary {
+  --mdc-filled-button-container-color: var(--primary);
+  --mdc-filled-button-label-text-color: #fff;
+}
+
+.mat-mdc-unelevated-button.mat-primary:hover {
+  --mdc-filled-button-container-color: var(--primary-dark);
+}
+
+.mat-mdc-outlined-button {
+  --mdc-outlined-button-outline-color: var(--stroke);
+}
+
+/* Shared visual system for all public and connected screens. */
+.landing { background: #f8fafc; }
+.landing .hero { background: linear-gradient(120deg, #0f766e 0%, #2563eb 100%); padding-block: 86px 72px; }
+.landing .hero-content h1, .landing .section-header h2, .landing .cta-content h2 { letter-spacing: -0.04em; }
+.landing .visual-card, .landing .feature-card, .landing .stat-card, .landing .cta-content { border: 1px solid #e2e8f0; box-shadow: 0 14px 34px rgba(15, 23, 42, .08); }
+.auth-layout { background: #f1f5f9 !important; padding: 56px 24px !important; }
+.auth-card { max-width: 1040px !important; border: 1px solid #e2e8f0; border-radius: 24px !important; box-shadow: 0 22px 55px rgba(15, 23, 42, .12) !important; }
+.auth-brand { background: linear-gradient(145deg, #102a43, #0f766e) !important; }
+.auth-form-panel { background: #fff; }
+.dashboard, .student-profile, .company-profile, .admin-dashboard, .offer-create-page, .offer-detail-page { background: #f1f5f9 !important; }
+.dash-header, .profile-header, .admin-header, .profile-card, .cv-card, .form-card, .offer-detail-card, .section-card { border: 1px solid #e2e8f0 !important; box-shadow: 0 12px 30px rgba(15, 23, 42, .07) !important; }
+.dash-header, .profile-header, .admin-header { border-radius: 20px !important; }
+.info-card:hover, .feature-card:hover, .offer-card:hover { transform: translateY(-4px); }
+.profile-header, .admin-header { background: linear-gradient(120deg, #102a43, #2563eb) !important; color: #fff; }
+.profile-header .eyebrow, .admin-header .eyebrow { color: #a7f3d0 !important; }
+.profile-header h1, .admin-header h1, .profile-header p, .admin-header p { color: #fff !important; }
+.mat-mdc-raised-button.mat-primary, .mat-mdc-unelevated-button.mat-primary { border-radius: 10px; font-weight: 700; }
+@media (max-width: 700px) { .auth-layout { padding: 28px 16px !important; } .landing .hero { padding-block: 56px 48px; } }
+
+/* Polished application shell */
+body { background: #f1f5f9; }
+.app-shell { background: #f1f5f9; }
+.topbar { background: rgba(255,255,255,.94) !important; border-bottom: 1px solid #e2e8f0 !important; box-shadow: 0 4px 18px rgba(15,23,42,.06) !important; }
+.topbar .container { max-width: 1240px; min-height: 72px; }
+.brand-logo { border: 1px solid #e2e8f0; box-shadow: 0 6px 16px rgba(15,23,42,.1) !important; }
+.brand-text strong { letter-spacing: -.02em; }
+.nav-links { gap: 6px !important; }
+.nav-link { border-radius: 10px !important; }
+.user-email { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .9rem; }
+.content { min-height: calc(100vh - 72px); }
+.mat-mdc-card { --mdc-elevated-card-container-color: #fff; }
+.mat-mdc-form-field { --mdc-outlined-text-field-container-shape: 12px; }
+.mat-mdc-card-title { letter-spacing: -.02em; }
+@media (max-width: 700px) { .topbar .container { min-height: auto; } .user-email { max-width: 180px; } }
+
+/* Alternative template: editorial graphite / ivory / orange theme */
+:root {
+  --bg-gradient-1: #1f2933;
+  --bg-gradient-2: #1f2933;
+  --surface: #fffdf8;
+  --surface-soft: #f5f1e8;
+  --text-primary: #1f2933;
+  --text-secondary: #59636e;
+  --text-muted: #8a9198;
+  --primary: #d3542b;
+  --primary-dark: #a63d20;
+  --primary-light: #f6c5b5;
+  --accent: #d9a441;
+  --stroke: #e4ddd0;
+  --shadow-lg: 0 12px 28px rgba(31, 41, 51, .10);
+  --shadow-xl: 0 22px 50px rgba(31, 41, 51, .14);
+}
+html, body { background: #f5f1e8 !important; color: #1f2933 !important; }
+.app-shell, .content { background: #f5f1e8 !important; }
+.topbar { background: #1f2933 !important; border-bottom: 0 !important; box-shadow: none !important; }
+.brand, .brand-text strong, .nav-link, .user-email { color: #fffdf8 !important; }
+.brand-text small { color: #c9c3b7 !important; }.brand-logo { border: 2px solid #d9a441 !important; box-shadow: none !important; }
+.nav-link:hover, .nav-link.active { color: #f4bb59 !important; background: rgba(255,255,255,.09) !important; }.btn.btn-outline { color: #fffdf8 !important; border-color: #d9a441 !important; background: transparent !important; }.btn.btn-outline:hover { background: #d9a441 !important; color: #1f2933 !important; }
+.landing { background: #f5f1e8 !important; }.landing .hero { background: #1f2933 !important; padding-block: 96px 88px !important; }.landing .hero-content h1 { color: #fffdf8 !important; }.landing .hero-content .eyebrow { color: #f4bb59 !important; }.landing .lead { color: #d9d1c2 !important; }.landing .hero .btn-primary { background: #d3542b !important; color: #fffdf8 !important; }.landing .hero .btn-outline { border-color: #d9a441 !important; color: #fffdf8 !important; }.landing .visual-card { border: 0 !important; border-radius: 4px !important; background: #fffdf8 !important; }.landing .stats, .landing .features { background: #f5f1e8 !important; }.landing .feature-card, .landing .stat-card, .landing .cta-content { background: #fffdf8 !important; border: 1px solid #e4ddd0 !important; border-radius: 4px !important; box-shadow: 0 6px 16px rgba(31,41,51,.07) !important; }.landing .section-header .eyebrow { color: #d3542b !important; }
+.auth-layout { background: #f5f1e8 !important; }.auth-card { border: 1px solid #d7cec0 !important; border-radius: 4px !important; box-shadow: 0 18px 40px rgba(31,41,51,.13) !important; }.auth-brand { background: #1f2933 !important; border-radius: 0 !important; }.auth-brand h1 { color: #fffdf8 !important; }.auth-form-panel { background: #fffdf8 !important; }.auth-eyebrow, .auth-link-row a, .auth-footer a { color: #d3542b !important; }.auth-actions button, .auth-form-panel button.mat-primary { background: #d3542b !important; border-radius: 4px !important; }.auth-alert { border-radius: 4px !important; }
+.dashboard, .student-profile, .company-profile, .admin-dashboard, .offer-create-page, .offer-detail-page, .offer-list-page, .offer-applications-page, .applications-page { background: #f5f1e8 !important; }.dash-header, .profile-header, .admin-header { border-radius: 4px !important; background: #1f2933 !important; color: #fffdf8 !important; box-shadow: none !important; }.dash-header h1, .profile-header h1, .admin-header h1, .dash-header p, .profile-header p, .admin-header p { color: #fffdf8 !important; }.dash-header .eyebrow, .profile-header .eyebrow, .admin-header .eyebrow { color: #f4bb59 !important; }
+.info-card, .profile-card, .cv-card, .form-card, .offer-detail-card, .section-card, .application-item, .offer-card { background: #fffdf8 !important; border: 1px solid #e4ddd0 !important; border-radius: 4px !important; box-shadow: 0 6px 16px rgba(31,41,51,.07) !important; }.info-card.accent { background: #f0e9dc !important; }.info-card:hover, .offer-card:hover { border-color: #d3542b !important; box-shadow: 0 12px 24px rgba(31,41,51,.12) !important; }
+.catalogue-hero, .applications-hero { background: #1f2933 !important; border-radius: 4px !important; box-shadow: none !important; }.catalogue-hero h1, .applications-hero h1 { color: #fffdf8 !important; }.catalogue-eyebrow, .applications-hero .eyebrow { color: #f4bb59 !important; }.catalogue-hero > div > p:last-child, .applications-hero p { color: #d9d1c2 !important; }.catalogue-hero button, .applications-hero button { background: #d3542b !important; color: #fffdf8 !important; border-radius: 4px !important; }.catalogue-tools, .search-box, .type-filters button { border-color: #d7cec0 !important; }.search-box, .type-filters button { background: #fffdf8 !important; border-radius: 4px !important; }.type-filters button.active { background: #f0e9dc !important; border-color: #d3542b !important; color: #a63d20 !important; }.offer-type, .tech-chip { border-radius: 3px !important; background: #f0e9dc !important; color: #7a492e !important; }.offer-card h2, .application-item h2 { color: #1f2933 !important; }.offer-card mat-card-actions button, .applications-page button { border-radius: 4px !important; }.offer-card mat-flat-button, .applications-page mat-flat-button { background: #d3542b !important; color: #fffdf8 !important; }.status-chip, .response-panel { border-radius: 4px !important; }
+.mat-mdc-form-field { --mdc-outlined-text-field-focus-outline-color: #d3542b; --mdc-outlined-text-field-focus-label-text-color: #d3542b; }.mat-mdc-unelevated-button.mat-primary { --mdc-filled-button-container-color: #d3542b; }
+
+
+

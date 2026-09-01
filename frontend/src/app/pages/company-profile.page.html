@@ -1,0 +1,87 @@
+<main class="company-profile">
+  <div class="container">
+    <header class="profile-header">
+      <button mat-button (click)="goBack()" class="back-btn">
+        <mat-icon>arrow_back</mat-icon>
+        Retour au tableau de bord
+      </button>
+      <div class="header-content">
+        <p class="eyebrow">Profil entreprise</p>
+        <h1>{{ companyProfile() ? 'Modifier ton profil' : 'Complète ton profil' }}</h1>
+      </div>
+    </header>
+
+    @if (errorMessage()) {
+      <div class="alert error">
+        <mat-icon>error</mat-icon>
+        {{ errorMessage() }}
+      </div>
+    }
+
+    @if (successMessage()) {
+      <div class="alert success">
+        <mat-icon>check_circle</mat-icon>
+        {{ successMessage() }}
+      </div>
+    }
+
+    <div class="profile-grid">
+      <mat-card class="profile-card">
+        <mat-card-header style="padding: 28px 28px 0 28px;">
+          <mat-card-title style="font-size: 1.35rem; color: var(--text-primary); font-weight: 700;">Informations de l'entreprise</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="padding: 28px;">
+          <form [formGroup]="form" (ngSubmit)="saveProfile()" class="profile-form">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Nom de l'entreprise *</mat-label>
+              <input matInput formControlName="name" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Adresse</mat-label>
+              <input matInput formControlName="address">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Site web</mat-label>
+              <input matInput formControlName="website" placeholder="https://example.com">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Secteur d'activité</mat-label>
+              <input matInput formControlName="sector" placeholder="Ex: Informatique, Finance, Santé">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description" rows="4" placeholder="Présentez votre entreprise..."></textarea>
+            </mat-form-field>
+
+            @if (companyProfile()) {
+              <div class="status-info">
+                <span class="status-label">Statut de validation :</span>
+                @if (companyProfile()?.validated) {
+                  <span class="status-badge validated">Validé</span>
+                } @else {
+                  <span class="status-badge pending">En attente de validation</span>
+                }
+              </div>
+              <div class="date-info">
+                <small>Créé le {{ companyProfile()?.created_at | date:'dd/MM/yyyy' }}</small>
+              </div>
+            }
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="form.invalid || loading()"
+            >
+              {{ loading() ? 'Enregistrement...' : 'Enregistrer le profil' }}
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</main>

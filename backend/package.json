@@ -1,0 +1,38 @@
+{
+  "name": "internlink-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "InternLink backend microservices baseline",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start:gateway": "ts-node apps/api-gateway/src/main.ts",
+    "start:auth": "ts-node apps/auth-service/src/main.ts",
+    "start:student": "ts-node apps/student-service/src/main.ts",
+    "start:company": "ts-node apps/company-service/src/main.ts",
+    "start:offer": "ts-node apps/offer-service/src/main.ts",
+    "start:application": "ts-node apps/application-service/src/main.ts",
+    "start:messaging": "ts-node apps/messaging-service/src/main.ts",
+    "start:notification": "ts-node apps/notification-service/src/main.ts"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^22.10.2",
+    "@types/pg": "^8.15.6",
+    "axios": "^1.18.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,175 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: internlink-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - '${POSTGRES_PORT}:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./infra/db/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: internlink-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - '${PGADMIN_PORT}:80'
+    depends_on:
+      - postgres
+
+  api-gateway:
+    build:
+      context: ./backend
+      dockerfile: apps/api-gateway/Dockerfile
+    container_name: internlink-api-gateway
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: ${GATEWAY_PORT}
+      AUTH_SERVICE_URL: http://auth-service:${AUTH_SERVICE_PORT}
+      STUDENT_SERVICE_URL: http://student-service:${STUDENT_SERVICE_PORT}
+      COMPANY_SERVICE_URL: http://company-service:${COMPANY_SERVICE_PORT}
+      OFFER_SERVICE_URL: http://offer-service:${OFFER_SERVICE_PORT}
+      APPLICATION_SERVICE_URL: http://application-service:${APPLICATION_SERVICE_PORT}
+      MESSAGING_SERVICE_URL: http://messaging-service:${MESSAGING_SERVICE_PORT}
+      NOTIFICATION_SERVICE_URL: http://notification-service:${NOTIFICATION_SERVICE_PORT}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    ports:
+      - '${GATEWAY_PORT}:${GATEWAY_PORT}'
+    depends_on:
+      - auth-service
+      - student-service
+      - company-service
+      - offer-service
+      - application-service
+      - messaging-service
+      - notification-service
+
+  auth-service:
+    build:
+      context: ./backend
+      dockerfile: apps/auth-service/Dockerfile
+    container_name: internlink-auth-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: ${AUTH_SERVICE_PORT}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      OTP_TTL_MINUTES: ${OTP_TTL_MINUTES}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GEMINI_API_KEY: 
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  student-service:
+    build:
+      context: ./backend
+      dockerfile: apps/student-service/Dockerfile
+    container_name: internlink-student-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: ${STUDENT_SERVICE_PORT}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  company-service:
+    build:
+      context: ./backend
+      dockerfile: apps/company-service/Dockerfile
+    container_name: internlink-company-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: ${COMPANY_SERVICE_PORT}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  offer-service:
+    build:
+      context: ./backend
+      dockerfile: apps/offer-service/Dockerfile
+    container_name: internlink-offer-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: ${OFFER_SERVICE_PORT}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  application-service:
+    build:
+      context: ./backend
+      dockerfile: apps/application-service/Dockerfile
+    container_name: internlink-application-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: ${APPLICATION_SERVICE_PORT}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  messaging-service:
+    build:
+      context: ./backend
+      dockerfile: apps/messaging-service/Dockerfile
+    container_name: internlink-messaging-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: ${MESSAGING_SERVICE_PORT}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  notification-service:
+    build:
+      context: ./backend
+      dockerfile: apps/notification-service/Dockerfile
+    container_name: internlink-notification-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: ${NOTIFICATION_SERVICE_PORT}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      SMTP_FROM: ${SMTP_FROM}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pg_data:
+
+
+
+
+
