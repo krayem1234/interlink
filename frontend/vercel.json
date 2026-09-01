@@ -2,7 +2,7 @@
     "rewrites":  [
                      {
                          "source":  "/api/:path*",
-                         "destination":  "https://internlink-production-a2d7.up.railway.app/api/:path*"
+                         "destination":  "https://interlink-production-1cde.up.railway.app/api/:path*"
                      },
                      {
                          "source":  "/(.*)",
