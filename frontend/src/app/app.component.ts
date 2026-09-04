@@ -69,7 +69,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.routerSubscription = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       this.refreshUnreadCount();
     });
-    this.refreshSubscription = interval(30000).subscribe(() => {
+    window.addEventListener('focus', this.handleWindowFocus);
+    this.refreshSubscription = interval(3000).subscribe(() => {
       this.refreshUnreadCount();
     });
     this.refreshUnreadCount();
@@ -81,6 +82,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private readonly handleNotificationsUpdated = () => this.refreshUnreadCount();
+  private readonly handleWindowFocus = () => this.refreshUnreadCount();
 
   private async refreshUnreadCount(): Promise<void> {
     const userId = this.auth.user()?.id;
