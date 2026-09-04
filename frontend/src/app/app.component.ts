@@ -23,6 +23,7 @@ import { Subscription, interval, filter } from 'rxjs';
           </a>
 
           <nav class="nav-links" aria-label="Navigation principale">
+            <button class="theme-toggle" type="button" (click)="toggleTheme()" [attr.aria-label]="darkMode() ? 'Activer le thème clair' : 'Activer le thème sombre'">{{ darkMode() ? '☀️' : '🌙' }}</button>
             @if (auth.isAuthenticated()) {
               @if (!auth.needsSecuritySetup()) {
                 <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
@@ -62,6 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly notificationService = inject(NotificationService);
   readonly unreadCount = signal(0);
+  readonly darkMode = signal(true);
   private refreshSubscription?: Subscription;
   private routerSubscription?: Subscription;
 
@@ -97,6 +99,16 @@ export class AppComponent implements OnInit, OnDestroy {
     } catch {
       // Silently ignore errors
     }
+  }
+
+  toggleTheme(): void {
+    this.darkMode.update(value => !value);
+    localStorage.setItem('interlink-theme', this.darkMode() ? 'dark' : 'light');
+    this.applyTheme();
+  }
+
+  private applyTheme(): void {
+    document.body.classList.toggle('light-theme', !this.darkMode());
   }
 
   logout(): void {

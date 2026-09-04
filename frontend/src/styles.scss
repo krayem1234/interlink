@@ -241,7 +241,7 @@ html, body { background: #f5f1e8 !important; color: #1f2933 !important; }
   .mat-mdc-form-field { max-width: 100%; }
   table { display: block; max-width: 100%; overflow-x: auto; }
 }
-\n/* Dark cool professional design system */
+/* Dark cool professional design system */
 :root {
   --bg-gradient-1:#172554; --bg-gradient-2:#312e81; --surface:#111827;
   --surface-soft:#1f2937; --text-primary:#f8fafc; --text-secondary:#cbd5e1;
@@ -285,3 +285,20 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
   .dash-header,.profile-header,.admin-header,.conversation-header,.notifications-hero { padding:20px !important; }
   .conversation-card,.notification-card,.offer-summary { padding:16px !important; }
 }
+.theme-toggle{flex:0 0 auto;border:1px solid #475569;border-radius:10px;background:#1e293b;color:#f8fafc;min-width:38px;height:36px;cursor:pointer;font-size:1rem;transition:all .2s ease}.theme-toggle:hover{border-color:#60a5fa;background:#263a5c;transform:translateY(-1px)}
+body.light-theme,body.light-theme .app-shell,body.light-theme .content{background:#f5f1e8 !important;color:#1f2933 !important}
+body.light-theme .topbar{background:rgba(255,255,255,.96) !important;border-bottom:1px solid #e4ddd0 !important;box-shadow:0 4px 18px rgba(31,41,51,.08) !important}
+body.light-theme .brand,body.light-theme .brand-text strong,body.light-theme .nav-link,body.light-theme .user-email{color:#1f2933 !important}
+body.light-theme .brand-text small{color:#59636e !important}
+body.light-theme .nav-link:hover,body.light-theme .nav-link.active{color:#a63d20 !important;background:rgba(211,84,43,.1) !important}
+body.light-theme .theme-toggle{background:#fffdf8;color:#1f2933;border-color:#d7cec0}
+body.light-theme .dashboard,body.light-theme .student-profile,body.light-theme .company-profile,body.light-theme .admin-dashboard,body.light-theme .offer-create-page,body.light-theme .offer-detail-page,body.light-theme .offer-list-page,body.light-theme .offer-applications-page,body.light-theme .applications-page,body.light-theme .conversation-page,body.light-theme .notifications-page{background:#f5f1e8 !important;color:#1f2933 !important}
+body.light-theme .info-card,body.light-theme .profile-card,body.light-theme .cv-card,body.light-theme .form-card,body.light-theme .offer-detail-card,body.light-theme .section-card,body.light-theme .application-item,body.light-theme .offer-card,body.light-theme .conversation-card,body.light-theme .notification-card,body.light-theme .offer-summary{background:#fffdf8 !important;color:#1f2933 !important;border-color:#e4ddd0 !important}
+body.light-theme .info-card h2,body.light-theme .offer-card h2,body.light-theme .application-item h2,body.light-theme .notification-card h2{color:#1f2933 !important}
+body.light-theme .info-card p,body.light-theme .offer-card p,body.light-theme .notification-card p{color:#59636e !important}
+body.light-theme .auth-layout{background:#f5f1e8 !important}
+body.light-theme .auth-card{background:#fffdf8 !important;border-color:#d7cec0 !important}
+body.light-theme .auth-form-panel{background:#fffdf8 !important}
+body.light-theme .auth-form-panel h2{color:#1f2933 !important}
+body.light-theme .mat-mdc-form-field{--mdc-outlined-text-field-input-text-color:#1f2933;--mdc-outlined-text-field-label-text-color:#59636e;--mdc-outlined-text-field-outline-color:#b8b0a4}
+
