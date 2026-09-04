@@ -1,10 +1,10 @@
 import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet, NavigationEnd } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from './core/auth/auth.service';
 import { NotificationService } from './core/notification.service';
-import { Subscription, interval } from 'rxjs';
+import { Subscription, interval, filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -63,8 +63,12 @@ export class AppComponent implements OnInit, OnDestroy {
   private readonly notificationService = inject(NotificationService);
   readonly unreadCount = signal(0);
   private refreshSubscription?: Subscription;
+  private routerSubscription?: Subscription;
 
   ngOnInit(): void {
+    this.routerSubscription = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+      this.refreshUnreadCount();
+    });
     this.refreshSubscription = interval(30000).subscribe(() => {
       this.refreshUnreadCount();
     });
@@ -73,6 +77,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.refreshSubscription?.unsubscribe();
+    this.routerSubscription?.unsubscribe();
   }
 
   private readonly handleNotificationsUpdated = () => this.refreshUnreadCount();
