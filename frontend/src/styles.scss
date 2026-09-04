@@ -241,3 +241,47 @@ html, body { background: #f5f1e8 !important; color: #1f2933 !important; }
   .mat-mdc-form-field { max-width: 100%; }
   table { display: block; max-width: 100%; overflow-x: auto; }
 }
+\n/* Dark cool professional design system */
+:root {
+  --bg-gradient-1:#172554; --bg-gradient-2:#312e81; --surface:#111827;
+  --surface-soft:#1f2937; --text-primary:#f8fafc; --text-secondary:#cbd5e1;
+  --text-muted:#94a3b8; --primary:#60a5fa; --primary-dark:#3b82f6;
+  --primary-light:#1e3a8a; --accent:#22d3ee; --stroke:#334155;
+  --shadow-lg:0 16px 36px rgba(2,6,23,.35); --shadow-xl:0 24px 60px rgba(2,6,23,.5);
+}
+html,body { background:#0b1120 !important; color:var(--text-primary) !important; }
+.app-shell,.content { background:#0b1120 !important; }
+.topbar { background:rgba(15,23,42,.94) !important; border-bottom:1px solid #24324a !important; box-shadow:0 8px 24px rgba(2,6,23,.3) !important; }
+.brand,.brand-text strong,.nav-link,.user-email { color:#e2e8f0 !important; }
+.brand-text small { color:#94a3b8 !important; }
+.brand-logo { border:1px solid #3b82f6 !important; box-shadow:0 0 0 3px rgba(96,165,250,.12) !important; }
+.nav-link:hover,.nav-link.active { color:#fff !important; background:rgba(59,130,246,.18) !important; }
+.btn.btn-outline { color:#bfdbfe !important; border-color:#3b82f6 !important; background:transparent !important; }
+.btn.btn-primary,.auth-actions button,.auth-form-panel button.mat-primary { background:linear-gradient(135deg,#2563eb,#4f46e5) !important; color:#fff !important; }
+.dashboard,.student-profile,.company-profile,.admin-dashboard,.offer-create-page,.offer-detail-page,.offer-list-page,.offer-applications-page,.applications-page,.conversation-page,.notifications-page { background:#0b1120 !important; color:var(--text-primary) !important; }
+.dash-header,.profile-header,.admin-header,.conversation-header,.notifications-hero,.catalogue-hero,.applications-hero { background:linear-gradient(135deg,#172554,#1e293b) !important; border:1px solid #334155 !important; box-shadow:var(--shadow-lg) !important; }
+.dash-header h1,.dash-header p,.profile-header h1,.profile-header p,.admin-header h1,.admin-header p,.conversation-header h1,.notifications-hero h1 { color:#f8fafc !important; }
+.info-card,.profile-card,.cv-card,.form-card,.offer-detail-card,.section-card,.application-item,.offer-card,.conversation-card,.notification-card,.offer-summary { background:#111827 !important; border:1px solid #334155 !important; color:#e2e8f0 !important; box-shadow:0 10px 26px rgba(2,6,23,.28) !important; }
+.info-card h2,.offer-card h2,.application-item h2,.notification-card h2 { color:#f8fafc !important; }
+.info-card p,.offer-card p,.notification-card p,.auth-subtitle,.brand-lead { color:#cbd5e1 !important; }
+.info-card:hover,.offer-card:hover { border-color:#60a5fa !important; box-shadow:0 16px 32px rgba(37,99,235,.2) !important; }
+.mat-mdc-card,.mat-mdc-form-field,.mat-mdc-text-field-wrapper { --mdc-elevated-card-container-color:#111827; }
+.mat-mdc-form-field { --mdc-outlined-text-field-input-text-color:#f8fafc; --mdc-outlined-text-field-label-text-color:#cbd5e1; --mdc-outlined-text-field-outline-color:#475569; --mdc-outlined-text-field-focus-outline-color:#60a5fa; }
+.mat-mdc-input-element, input, textarea, select { color:#f8fafc !important; }
+.auth-layout { background:#0b1120 !important; }
+.auth-card { background:#111827 !important; border:1px solid #334155 !important; box-shadow:var(--shadow-xl) !important; }
+.auth-brand { background:linear-gradient(145deg,#172554,#312e81) !important; }
+.auth-form-panel { background:#111827 !important; }
+.auth-form-panel h2 { color:#f8fafc !important; }
+.auth-alert--error,.error-message,.conversation-error { background:#3f1d2e !important; color:#fecdd3 !important; border-color:#9f1239 !important; }
+.notifications-list .notification-card.unread { border-color:#22d3ee !important; box-shadow:0 0 0 1px rgba(34,211,238,.12) !important; }
+.notification-symbol { background:#1e293b !important; color:#67e8f9 !important; }
+.status-badge,.status-chip,.offer-type,.tech-chip { background:#1e3a5f !important; color:#bfdbfe !important; }
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible { outline:2px solid #22d3ee !important; outline-offset:2px; }
+@media (max-width:700px) {
+  .topbar .container { padding:10px 12px !important; }
+  .nav-links { scrollbar-width:none; }
+  .nav-links::-webkit-scrollbar { display:none; }
+  .dash-header,.profile-header,.admin-header,.conversation-header,.notifications-hero { padding:20px !important; }
+  .conversation-card,.notification-card,.offer-summary { padding:16px !important; }
+}
