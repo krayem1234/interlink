@@ -302,3 +302,13 @@ body.light-theme .auth-form-panel{background:#fffdf8 !important}
 body.light-theme .auth-form-panel h2{color:#1f2933 !important}
 body.light-theme .mat-mdc-form-field{--mdc-outlined-text-field-input-text-color:#1f2933;--mdc-outlined-text-field-label-text-color:#59636e;--mdc-outlined-text-field-outline-color:#b8b0a4}
 
+/* Dark overrides for component-scoped cards */
+body:not(.light-theme) .week7-card,body:not(.light-theme) .week7-card input,body:not(.light-theme) .week7-card textarea{background:#111827 !important;color:#f8fafc !important;border-color:#334155 !important}
+body:not(.light-theme) .week7-card h2,body:not(.light-theme) .week7-card h2 mat-icon{color:#f8fafc !important}
+body:not(.light-theme) .week7-card h2 mat-icon{color:#22d3ee !important}
+body:not(.light-theme) .week7-card input::placeholder,body:not(.light-theme) .week7-card textarea::placeholder{color:#94a3b8 !important}
+body:not(.light-theme) .week7-card .result,body:not(.light-theme) .week7-card .score{background:#1e293b !important;color:#e2e8f0 !important}
+body:not(.light-theme) .week7-card .result p,body:not(.light-theme) .week7-card .result small,body:not(.light-theme) .week7-card .score span,body:not(.light-theme) .week7-card .score small{color:#cbd5e1 !important}
+body:not(.light-theme) .info-card.accent{background:#172554 !important;color:#f8fafc !important}
+body:not(.light-theme) .info-card.accent .card-label,body:not(.light-theme) .info-card.accent p,body:not(.light-theme) .info-card.accent h2{color:#f8fafc !important}
+
