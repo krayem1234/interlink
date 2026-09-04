@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PostgresService } from './postgres.service';
 
-export type ApplicationStatus = 'PENDING' | 'INTERVIEW' | 'ACCEPTED' | 'REJECTED' | 'CONTRACT' | 'STARTED';
+export type ApplicationStatus = 'PENDING' | 'INTERVIEW' | 'ACCEPTED' | 'REJECTED' | 'CONTRACT' | 'CONVENTION' | 'STARTED';
 
 @Injectable()
 export class ApplicationService {
@@ -74,14 +74,16 @@ export class ApplicationService {
   }
 
   async updateApplicationStatus(applicationId: string, companyId: string, status: ApplicationStatus, interviewAt?: string) {
-    if (status === 'INTERVIEW' && (!interviewAt || Number.isNaN(Date.parse(interviewAt)))) {
+    const normalizedStatus: ApplicationStatus = status === 'CONTRACT' ? 'CONVENTION' : status;
+    if (normalizedStatus === 'INTERVIEW' && (!interviewAt || Number.isNaN(Date.parse(interviewAt)))) {
       throw new BadRequestException("La date et l'heure de l'entretien sont obligatoires.");
     }
 
-    // Verify the application belongs to the company's offer
+    // Verify the application belongs to the company's offer and get student/offer info
     const check = await this.db.query(
-      `SELECT a.id, o.company_id, o.id as offer_id FROM applications a
+      `SELECT a.id, o.company_id, o.id as offer_id, o.title as offer_title, s.user_id as student_user_id, a.status as current_status FROM applications a
        JOIN offers o ON a.offer_id = o.id
+       JOIN students s ON a.student_id = s.id
        WHERE a.id = $1`,
       [applicationId]
     );
@@ -98,8 +100,54 @@ export class ApplicationService {
        SET status = $1, interview_at = $2, updated_at = NOW()
        WHERE id = $3
        RETURNING *`,
-      [status, interviewAt || null, applicationId]
+      [normalizedStatus, interviewAt || null, applicationId]
     );
+
+    // Create notification for student only if status actually changed
+    if (row.current_status !== normalizedStatus) {
+      const studentUserId = row.student_user_id;
+      const offerTitle = row.offer_title;
+      let title = '';
+      let content = '';
+      
+      switch (normalizedStatus) {
+        case 'INTERVIEW':
+          title = 'Entretien programmé pour votre candidature';
+          content = `Votre candidature pour l'offre "${offerTitle}" a été mise à jour. Un entretien est prévu le ${new Date(interviewAt!).toLocaleDateString('fr-FR')} à ${new Date(interviewAt!).toLocaleTimeString('fr-FR')}.`;
+          break;
+        case 'ACCEPTED':
+          title = 'Candidature acceptée !';
+          content = `Félicitations ! Votre candidature pour l'offre "${offerTitle}" a été acceptée par l'entreprise.`;
+          break;
+        case 'REJECTED':
+          title = 'Candidature non retenue';
+          content = `Votre candidature pour l'offre "${offerTitle}" n'a pas été retenue par l'entreprise.`;
+          break;
+
+        case 'CONVENTION':
+          title = 'Convention de stage disponible';
+          content = `Votre candidature pour l'offre "${offerTitle}" est passée au statut convention. Connectez-vous pour accéder à votre convention de stage.`;
+          break;
+        case 'STARTED':
+          title = 'Début de stage confirmé';
+          content = `Votre stage pour l'offre "${offerTitle}" a officiellement commencé. Bon stage !`;
+          break;
+        default:
+          title = 'Mise à jour de votre candidature';
+          content = `Le statut de votre candidature pour l'offre "${offerTitle}" a été modifié : ${status}.`;
+          break;
+      }
+
+      try {
+        await this.db.query(
+          `INSERT INTO notifications(user_id, title, content, is_read) VALUES($1, $2, $3, $4)`,
+          [studentUserId, title, content, false]
+        );
+        console.log(`Notification created for user ${studentUserId}: ${title}`);
+      } catch (error) {
+        console.error('Error creating notification:', error);
+      }
+    }
 
     return { application: result.rows[0], message: 'Statut de la candidature mis à jour' };
   }
@@ -121,3 +169,5 @@ export class ApplicationService {
     return { application: result.rows[0] };
   }
 }
+
+
