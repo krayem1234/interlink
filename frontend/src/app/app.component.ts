@@ -1,8 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from './core/auth/auth.service';
+import { NotificationService } from './core/notification.service';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +28,12 @@ import { AuthService } from './core/auth/auth.service';
                 <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
                 @if (auth.user()?.role === 'STUDENT') {
                   <a class="nav-link" routerLink="/my-applications" routerLinkActive="active">Mes candidatures</a>
-                  <a class="nav-link" routerLink="/notifications" routerLinkActive="active">Notifications</a>
+                  <a class="nav-link" routerLink="/notifications" routerLinkActive="active">
+                    Notifications
+                    @if (unreadCount() > 0) {
+                      <span class="notification-badge">{{ unreadCount() }}</span>
+                    }
+                  </a>
                   <a class="nav-link" routerLink="/week7" routerLinkActive="active">IA & documents</a>
                 }
               }
@@ -50,20 +57,43 @@ import { AuthService } from './core/auth/auth.service';
   `,
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly notificationService = inject(NotificationService);
+  readonly unreadCount = signal(0);
+  private refreshSubscription?: Subscription;
+
+  ngOnInit(): void {
+    this.refreshSubscription = interval(30000).subscribe(() => {
+      this.refreshUnreadCount();
+    });
+    this.refreshUnreadCount();
+  }
+
+  ngOnDestroy(): void {
+    this.refreshSubscription?.unsubscribe();
+  }
+
+  private readonly handleNotificationsUpdated = () => this.refreshUnreadCount();
+
+  private async refreshUnreadCount(): Promise<void> {
+    const userId = this.auth.user()?.id;
+    if (!userId) {
+      this.unreadCount.set(0);
+      return;
+    }
+    try {
+      const result = await this.notificationService.list(userId);
+      const unread = result.notifications.filter(n => !n.is_read).length;
+      this.unreadCount.set(unread);
+    } catch {
+      // Silently ignore errors
+    }
+  }
 
   logout(): void {
     this.auth.logout();
     void this.router.navigateByUrl('/signin');
   }
 }
-
-
-
-
-
-
-
-
