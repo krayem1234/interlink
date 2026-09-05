@@ -342,3 +342,21 @@ body:not(.light-theme) .landing .feature-card:hover,body:not(.light-theme) .land
 body:not(.light-theme) .landing .btn,body:not(.light-theme) .info-card,body:not(.light-theme) .offer-card{transform-style:preserve-3d}
 body:not(.light-theme) .landing .btn:hover{transform:translateY(-3px) translateZ(4px)}
 @media (prefers-reduced-motion:reduce){body:not(.light-theme) .landing .visual-card,body:not(.light-theme) .landing .stat-card:nth-child(2),body:not(.light-theme) .landing .stat-card:nth-child(3){animation:none}}
+/* Week 7 workspace refinement */
+.week7-page{max-width:1240px !important;padding:48px 32px 80px !important}
+.week7-hero{position:relative;overflow:hidden;padding:42px 46px !important;border:1px solid rgba(96,165,250,.25);box-shadow:0 20px 48px rgba(2,6,23,.3) !important}
+.week7-hero::after{content:'';position:absolute;width:260px;height:260px;right:-80px;top:-120px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.2),transparent 68%);pointer-events:none}
+.week7-hero h1{font-size:clamp(2rem,4vw,3rem) !important;letter-spacing:-.04em}
+.week7-grid{grid-template-columns:repeat(auto-fit,minmax(460px,1fr)) !important;gap:28px !important}
+.week7-grid:has(> .week7-card:only-child){grid-template-columns:minmax(0,820px) !important;justify-content:center}
+.week7-card{padding:30px !important;border-radius:18px !important;box-shadow:0 18px 40px rgba(2,6,23,.35),inset 0 1px rgba(148,163,184,.08) !important}
+.week7-card h2{font-size:1.4rem !important;margin-bottom:6px !important}
+.week7-card textarea,.week7-card input{min-height:48px;background:#0f172a !important;border-color:#475569 !important;color:#f8fafc !important;transition:border-color .2s,box-shadow .2s}
+.week7-card textarea:focus,.week7-card input:focus{border-color:#22d3ee !important;box-shadow:0 0 0 3px rgba(34,211,238,.14);outline:none}
+.week7-card textarea{min-height:150px}
+.week7-card .actions{align-items:center;margin-top:4px}
+.week7-card button{min-height:42px;padding-inline:20px !important;border-radius:10px !important;font-weight:700 !important}
+body:not(.light-theme) .week7-card .mat-mdc-outlined-button{color:#bfdbfe !important;border-color:#60a5fa !important}
+body.light-theme .week7-card{background:#fffdf8 !important;color:#1f2933 !important}
+body.light-theme .week7-card textarea,body.light-theme .week7-card input{background:#fffdf8 !important;color:#1f2933 !important;border-color:#c9c0b4 !important}
+@media(max-width:700px){.week7-page{padding:28px 16px 50px !important}.week7-hero{padding:28px 22px !important}.week7-grid,.week7-grid:has(> .week7-card:only-child){grid-template-columns:1fr !important}.week7-card{padding:22px !important}.week7-card .actions{flex-direction:column;align-items:stretch}.week7-card .actions button{width:100%}}
