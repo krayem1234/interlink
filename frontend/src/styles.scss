@@ -323,3 +323,12 @@ body:not(.light-theme) button:hover,body:not(.light-theme) .btn:hover{filter:bri
 body:not(.light-theme) button:active,body:not(.light-theme) .btn:active{transform:translateY(1px) scale(.99)}
 @media (max-width:700px){body:not(.light-theme) .info-card:hover,body:not(.light-theme) .offer-card:hover,body:not(.light-theme) .notification-card:hover,body:not(.light-theme) .week7-card:hover{transform:translateY(-2px)}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;scroll-behavior:auto !important;transition-duration:.01ms !important}}
+body:not(.light-theme) .landing .visual-card,body:not(.light-theme) .landing .stat-card,body:not(.light-theme) .landing .feature-card,body:not(.light-theme) .landing .cta-content{background:linear-gradient(145deg,#1e293b,#111827) !important;color:#f8fafc !important;border:1px solid #334155 !important;box-shadow:0 18px 42px rgba(2,6,23,.42),inset 0 1px rgba(148,163,184,.08) !important}
+body:not(.light-theme) .landing .visual-content h3,body:not(.light-theme) .landing .feature-card h3,body:not(.light-theme) .landing .cta-content h2,body:not(.light-theme) .landing .section-header h2{color:#f8fafc !important}
+body:not(.light-theme) .landing .visual-content li,body:not(.light-theme) .landing .feature-card p,body:not(.light-theme) .landing .cta-content p,body:not(.light-theme) .landing .stat-card p{color:#cbd5e1 !important}
+body:not(.light-theme) .landing .stats,body:not(.light-theme) .landing .features{background:#0f172a !important}
+body:not(.light-theme) .landing .tag{background:#1e3a5f !important;color:#bfdbfe !important;border:1px solid #2563eb}
+body.light-theme .landing .visual-card,body.light-theme .landing .stat-card,body.light-theme .landing .feature-card,body.light-theme .landing .cta-content{background:#fffdf8 !important;color:#1f2933 !important;border-color:#e4ddd0 !important}
+body.light-theme .landing .visual-content h3,body.light-theme .landing .feature-card h3,body.light-theme .landing .cta-content h2,body.light-theme .landing .section-header h2{color:#1f2933 !important}
+body.light-theme .landing .visual-content li,body.light-theme .landing .feature-card p,body.light-theme .landing .cta-content p,body.light-theme .landing .stat-card p{color:#59636e !important}
+body.light-theme .landing .stats{background:#fffdf8 !important}.theme-toggle{box-shadow:0 6px 16px rgba(2,6,23,.25)}
