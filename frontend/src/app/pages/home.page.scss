@@ -287,3 +287,31 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Accueil : animation 3D subtile de la carte de pr�sentation */
+.hero-visual {
+  perspective: 1100px;
+}
+
+.hero .visual-card {
+  transform-style: preserve-3d;
+  animation: home-card-float 6s ease-in-out infinite;
+  transition: transform .45s ease, box-shadow .45s ease;
+  will-change: transform;
+}
+
+.hero .visual-card:hover {
+  animation-play-state: paused;
+  transform: translateY(-8px) rotateX(5deg) rotateY(-7deg) scale(1.02);
+  box-shadow: 0 28px 55px rgba(8, 18, 40, .24);
+}
+
+@keyframes home-card-float {
+  0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+  50% { transform: translateY(-10px) rotateX(2deg) rotateY(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .visual-card { animation: none; transition: none; }
+}
