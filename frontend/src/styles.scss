@@ -360,3 +360,7 @@ body:not(.light-theme) .week7-card .mat-mdc-outlined-button{color:#bfdbfe !impor
 body.light-theme .week7-card{background:#fffdf8 !important;color:#1f2933 !important}
 body.light-theme .week7-card textarea,body.light-theme .week7-card input{background:#fffdf8 !important;color:#1f2933 !important;border-color:#c9c0b4 !important}
 @media(max-width:700px){.week7-page{padding:28px 16px 50px !important}.week7-hero{padding:28px 22px !important}.week7-grid,.week7-grid:has(> .week7-card:only-child){grid-template-columns:1fr !important}.week7-card{padding:22px !important}.week7-card .actions{flex-direction:column;align-items:stretch}.week7-card .actions button{width:100%}}
+
+/* Landing page theme consistency */
+body:not(.light-theme) .landing .cta { background: #0f172a !important; }
+body.light-theme .landing .cta { background: #f5f1e8 !important; }
