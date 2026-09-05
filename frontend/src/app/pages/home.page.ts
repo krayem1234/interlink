@@ -11,15 +11,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.page.scss'
 })
 export class HomePage {
-  readonly services = [
-    'Auth MS',
-    'Student MS',
-    'Company MS',
-    'Offer MS',
-    'Application MS',
-    'Messaging MS',
-    'Notification MS'
-  ];
+  
 
   readonly highlights = [
     {
